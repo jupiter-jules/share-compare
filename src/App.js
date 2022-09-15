@@ -1,9 +1,12 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import React from "react";
 import { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Container from 'react-bootstrap/Container';
-/*import Button from 'react-bootstrap/Button';*/
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Form from 'react-bootstrap/Form';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Col from 'react-bootstrap/Col';
@@ -24,28 +27,38 @@ function App() {
     window.confirm("Alles läuft nach Plan.");
   }
 
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Miles, Stattauto, Sixt share und Share Now
+    </Tooltip>
+  );
+
   return (
     <div className="App">
       <Container>  
       <div class="py-5 text-center">
-        <h1>
-        Share  <span style={{
-            fontWeight: "200",color:"green"
-          }}>Compare</span></h1>
+        <h1><span style={{color:"green"}}>Share  </span><span style={{
+            fontWeight: "200"}}>Compare</span></h1>
         <p class="lead">Sharing is Comparing</p>
+        <OverlayTrigger
+      placement="right"
+      delay={{ show: 250, hide: 400 }}
+      overlay={renderTooltip}
+    >
+      <Button variant="success">Kostenprognosen für 4 Carsharing Anbieter</Button>
+    </OverlayTrigger>
       </div>
       
-
       <Form onSubmit={handleSubmit}>
 
       <Row className="mb-3">
-        <Form.Group as={Col} controlId="formGridEmail">
-          <Form.Label style={{fontWeight:"bold"}}>Strecke</Form.Label>
+        <Form.Group as={Col}>
+          <Form.Label><span style={{fontWeight:"bold"}}>Strecke</span> [km]</Form.Label>
           <Form.Control type="number" name="distance" value={inputs.distance || ""} onChange={handleChange} placeholder="Kilometer gesamt" />
         </Form.Group>
 
-        <Form.Group as={Col} controlId="formGridPassword">
-          <Form.Label style={{fontWeight:"bold"}}>Dauer</Form.Label>
+        <Form.Group as={Col}>
+          <Form.Label><span style={{fontWeight:"bold"}}>Dauer</span> [h]</Form.Label>
           <Form.Control type="number" name="duration" value={inputs.duration || ""} onChange={handleChange} placeholder="Mietdauer gesamt in Stunden" />
         </Form.Group>
       </Row>
@@ -57,7 +70,7 @@ function App() {
       <Results inputs={inputs}/>
     </Form>
     
-    <p style={{fontSize:"1em", color:"grey", marginTop: "5em"}}>Beinhaltet ungefähre Preisangaben für Miles, Stattauto, Sixt share und Share Now. Berechnungen ohne Gewähr.</p>    
+    <p style={{fontSize:"1em", color:"grey", marginTop: "5em"}}>Beinhaltet ungefähre Preisangaben für insgesamt 15 Tarife von Miles, Stattauto, Sixt share und Share Now. Berechnungen ohne Gewähr.</p>    
     </Container>
     </div>
   );
