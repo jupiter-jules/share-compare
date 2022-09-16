@@ -83,7 +83,7 @@ function Results ({inputs}) {
 
   const options = [
     { id: 1, provider: "Stattauto", rate:"Stundentarif", minimumduration: 0, tripcost: (3.15 * duration + 0.32 * distance).toFixed(2)},
-    { id: 2, provider: "Stattauto", rate:"Tagestarif", minimumduration: 12, tripcost: (1.31 * duration + 0.32 * distance).toFixed(2)},
+    { id: 2, provider: "Stattauto", rate:"Tagestarif", minimumduration: 10, tripcost: (31.5 + 3.15 * Math.max(0,duration - 24) + 0.32 * distance).toFixed(2)},
     { id: 3, provider: "Miles", rate:"km-Tarif", minimumduration: 0, tripcost: (1 + 0.98 * distance).toFixed(2)},
     { id: 4, provider: "Miles", rate:"Stundentarif 3h", minimumduration: 0, tripcost: (34 + 0.49 * Math.max(0,distance - 40)).toFixed(2)},
     { id: 5, provider: "Miles", rate:"Stundentarif 6h", minimumduration: 0, tripcost: (45 + 0.49 * Math.max(0,distance - 60)).toFixed(2)},
@@ -113,7 +113,7 @@ function Results ({inputs}) {
     <h4 style={{color: "green", marginBottom: "1em"}}>Top 5: So viel würde es kosten</h4>
     <ul>
     <ListGroup>
-    <ListGroup.Item key={bestOption.id} variant="success">
+    <ListGroup.Item key={bestOption.id} variant="success" style={{marginLeft: "-2em"}}>
           <span style={{fontWeight: "700"
           }}>{bestOption.provider}</span> {bestOption.rate}<h5><Badge bg="success">{bestOption.tripcost} Euro</Badge></h5>
           </ListGroup.Item>
@@ -121,7 +121,7 @@ function Results ({inputs}) {
           
           {bestAlternatives.map((bestAlternatives) => (
           <ListGroup>
-          <ListGroup.Item variant="light">
+          <ListGroup.Item variant="light" style={{marginLeft: "-2em"}}>
           <span style={{fontWeight: "700"
           }}>{bestAlternatives.provider}</span> {bestAlternatives.rate}<h5><Badge bg="secondary">{bestAlternatives.tripcost} Euro</Badge></h5>
           </ListGroup.Item>
